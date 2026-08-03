@@ -1,0 +1,44 @@
+# Arquivos locais e de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+.codex/
+.agents/
+tmp/
+
+# Dependências e builds locais
+node_modules/
+dist/
+coverage/
+*.log
+
+# Segredos e configurações privadas
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Fontes de trabalho e imagens brutas (não publicar)
+/Inspiração/
+/imagens/
+/manual_de_marca.pdf
+/Logo nova Guincho Marquizelli  (1).png
+*.psd
+*.ai
+*.tif
+*.tiff
+*.raw
+*.cr2
+*.cr3
+*.nef
+
+# Rascunhos
+rascunhos/
+drafts/
+*.tmp
+*.bak
