@@ -46,8 +46,9 @@ Observação de conteúdo: o documento mestre institucional citado no briefing n
 5. Posicionamento: força, agilidade e confiança.
 6. Frota: trilho fotográfico horizontal no desktop e carrossel por toque no mobile.
 7. Área de atuação: região de Marília, com composição tipográfica de grande escala.
-8. CTA final: WhatsApp, telefone e Instagram.
-9. Rodapé: navegação resumida e dados confirmados.
+8. Formas de pagamento: Pix, dinheiro, débito e crédito.
+9. CTA final: WhatsApp, dois telefones, Instagram e Facebook.
+10. Rodapé: navegação resumida e dados confirmados.
 
 ## 3. Layout e grid
 

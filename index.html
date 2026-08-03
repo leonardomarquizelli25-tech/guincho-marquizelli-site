@@ -47,6 +47,7 @@
           <a href="#sobre">Sobre</a>
           <a href="#frota">Frota</a>
           <a href="#atuacao">Atuação</a>
+          <a href="#pagamentos">Pagamentos</a>
           <a href="#contato">Contato</a>
         </nav>
 
@@ -261,11 +262,62 @@
         </div>
       </section>
 
+      <section class="payments section-pad" id="pagamentos" aria-labelledby="payments-title">
+        <div class="payments-grid-lines" aria-hidden="true"></div>
+        <div class="container">
+          <div class="section-intro payments-intro">
+            <div data-reveal>
+              <p class="eyebrow eyebrow-light"><span>05</span> Formas de pagamento</p>
+              <h2 id="payments-title">Pague como <em>preferir.</em></h2>
+            </div>
+            <p class="section-lead" data-reveal>Escolha a forma de pagamento mais conveniente para o seu atendimento.</p>
+          </div>
+
+          <div class="payment-grid">
+            <article class="payment-card" data-reveal>
+              <span class="payment-index">01</span>
+              <div class="payment-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64"><path d="m32 7 12 12-12 12-12-12L32 7Zm0 26 12 12-12 12-12-12 12-12ZM18 21 7 32l11 11 11-11-11-11Zm28 0L35 32l11 11 11-11-11-11Z"/></svg>
+              </div>
+              <p>Pagamento direto</p>
+              <h3>Pix</h3>
+            </article>
+
+            <article class="payment-card" data-reveal>
+              <span class="payment-index">02</span>
+              <div class="payment-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64"><path d="M8 17h48v30H8V17Zm7 7h34M15 40h15M40 31h9"/></svg>
+              </div>
+              <p>Pagamento à vista</p>
+              <h3>Dinheiro</h3>
+            </article>
+
+            <article class="payment-card" data-reveal>
+              <span class="payment-index">03</span>
+              <div class="payment-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64"><path d="M7 16h50v34H7V16Zm0 10h50M14 41h16"/></svg>
+              </div>
+              <p>Cartão</p>
+              <h3>Débito</h3>
+            </article>
+
+            <article class="payment-card payment-card-accent" data-reveal>
+              <span class="payment-index">04</span>
+              <div class="payment-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64"><path d="M7 16h50v34H7V16Zm0 10h50M14 41h16M45 36v10m-5-5h10"/></svg>
+              </div>
+              <p>À vista ou parcelado com juros</p>
+              <h3>Crédito</h3>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="contact" id="contato" aria-labelledby="contact-title">
         <div class="contact-stripes" aria-hidden="true"></div>
         <div class="container contact-inner">
           <div>
-            <p class="eyebrow eyebrow-light" data-reveal><span>05</span> Atendimento imediato</p>
+            <p class="eyebrow eyebrow-light" data-reveal><span>06</span> Atendimento imediato</p>
             <h2 id="contact-title" data-reveal>Seu veículo parou?<br><em>A Marquizelli chega.</em></h2>
           </div>
           <div class="contact-actions" data-reveal>
@@ -274,10 +326,21 @@
               <strong>(14) 99703-6966</strong>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
-            <a class="contact-social" href="https://www.instagram.com/guinchomarquizelli/" target="_blank" rel="noopener noreferrer">
-              <span>Siga a frota</span>
-              <strong>@guinchomarquizelli</strong>
+            <a class="contact-phone" href="tel:+5514999041010">
+              <span>Outra linha</span>
+              <strong>(14) 99904-1010</strong>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
+            <div class="contact-social-grid">
+              <a class="contact-social" href="https://www.instagram.com/guinchomarquizelli/" target="_blank" rel="noopener noreferrer">
+                <span>Instagram · @guinchomarquizelli</span>
+                <strong>Guincho Marquizelli</strong>
+              </a>
+              <a class="contact-social" href="https://www.facebook.com/search/top/?q=Guincho%20Marquizelli" target="_blank" rel="noopener noreferrer">
+                <span>Facebook</span>
+                <strong>Guincho Marquizelli</strong>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -291,12 +354,15 @@
         <div>
           <p class="footer-label">Atendimento</p>
           <a href="tel:+5514997036966">(14) 99703-6966</a>
+          <a href="tel:+5514999041010">(14) 99904-1010</a>
           <a href="https://www.instagram.com/guinchomarquizelli/" target="_blank" rel="noopener noreferrer">@guinchomarquizelli</a>
+          <a href="https://www.facebook.com/search/top/?q=Guincho%20Marquizelli" target="_blank" rel="noopener noreferrer">Facebook · Guincho Marquizelli</a>
         </div>
         <div>
           <p class="footer-label">Navegação</p>
           <a href="#servicos">Serviços</a>
           <a href="#frota">Frota</a>
+          <a href="#pagamentos">Pagamentos</a>
           <a href="#sobre">Sobre</a>
         </div>
         <div class="footer-bottom">
@@ -320,13 +386,14 @@
         "@type": "TowingService",
         "name": "Guincho Marquizelli",
         "url": "https://www.guinchomarquizelli.com.br/",
-        "telephone": "+55 14 99703-6966",
+        "telephone": ["+55 14 99703-6966", "+55 14 99904-1010"],
         "areaServed": {
           "@type": "AdministrativeArea",
           "name": "Região de Marília"
         },
         "openingHours": "Mo-Su 00:00-23:59",
         "serviceType": ["Transporte de carros", "Transporte de caminhões", "Transporte de tratores"],
+        "paymentAccepted": "Pix, dinheiro, cartão de débito e cartão de crédito à vista ou parcelado com juros",
         "sameAs": ["https://www.instagram.com/guinchomarquizelli/"]
       }
     </script>
