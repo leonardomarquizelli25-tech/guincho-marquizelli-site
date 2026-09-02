@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-08-05T00:00:00-03:00",
+  "source_workspace": "Site Guincho Marquizelli",
+  "manual": {
+    "source": "../manual_de_marca.pdf",
+    "status": "inspected",
+    "pages": 15,
+    "source_of_truth": true
+  },
+  "logos": [
+    {
+      "file": "logos/logo-oficial.png",
+      "width": 4369,
+      "height": 1977,
+      "has_alpha": true,
+      "sha256": "cf9508ce6b6b27da369d56f015f4f4a4eb1e2c8cf8764c5be891a4fd3a21b4db",
+      "locked": true
+    }
+  ],
+  "fonts": [
+    "fonts/anton-regular.woff2",
+    "fonts/oswald-bold.woff2",
+    "fonts/barlow-regular.woff2",
+    "fonts/barlow-bold.woff2"
+  ],
+  "truck_originals": [
+    { "file": "trucks/originals/IMG_1766.JPG", "width": 6048, "height": 8064, "sha256": "eb6683bf278a75a7a14f607e6fb460ab68d2a8c1334deba47d0052fae0070b19", "locked": true },
+    { "file": "trucks/originals/IMG_1773.JPG", "width": 6048, "height": 8064, "sha256": "017ad17303df7062bbdd418719f2e49073d2404931d14f914004dc9b32729390", "locked": true },
+    { "file": "trucks/originals/IMG_4674.jpg", "width": 1116, "height": 1463, "sha256": "4f56a5418e3998da5a75e461791dc32fd996cd17c7e46171c5b93be156a5fcb3", "locked": true },
+    { "file": "trucks/originals/IMG_4676.jpg", "width": 1311, "height": 1731, "sha256": "a0e5a390740c0aaaf74cd669f02f10df46a898d59fd56c64f6ba9b2d2d0c127a", "locked": true }
+  ],
+  "approved_trucks": [
+    { "file": "trucks/approved/IMG_1773.JPG", "source": "trucks/originals/IMG_1773.JPG", "same_sha256": true }
+  ],
+  "visual_references": {
+    "expected": 5,
+    "found": 2,
+    "missing": 3,
+    "files": [
+      "references/visual/reference-01-carhive.jfif",
+      "references/visual/reference-02-diagonal-layout.jfif"
+    ],
+    "usage": "visual-language-only"
+  },
+  "generated_assets": [
+    {
+      "file": "generated-assets/warning-triangle-3d.png",
+      "provider": "built-in-imagegen-plus-local-chroma-key-removal",
+      "contains_brand_or_text": false
+    }
+  ],
+  "confirmed_business_data": [
+    "official name",
+    "short name",
+    "reboque de veículos",
+    "transporte de veículos",
+    "phone: (14) 99703-6966",
+    "phone: (14) 99904-1010",
+    "website: www.guinchomarquizelli.com.br"
+  ],
+  "missing_business_data": [
+    "WhatsApp",
+    "Instagram",
+    "address",
+    "service area",
+    "opening hours",
+    "prices",
+    "payment methods"
+  ]
+}

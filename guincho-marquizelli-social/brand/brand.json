@@ -1,0 +1,94 @@
+{
+  "company": {
+    "official_name": "Guincho Marquizelli",
+    "short_name": "Marquizelli",
+    "description": "Serviço de guincho, reboque e transporte de veículos",
+    "phone": "(14) 99703-6966",
+    "phones": [
+      "(14) 99703-6966",
+      "(14) 99904-1010"
+    ],
+    "website": "www.guinchomarquizelli.com.br",
+    "whatsapp": null,
+    "instagram": null,
+    "address": null,
+    "service_area": null,
+    "opening_hours": null
+  },
+  "services": {
+    "confirmed": [
+      "reboque de veículos",
+      "transporte de veículos"
+    ],
+    "requires_confirmation": [
+      "reboque de veículos leves",
+      "reboque de veículos pesados",
+      "atendimento 24 horas",
+      "atendimento em rodovias",
+      "atendimento em acidentes",
+      "atendimento em panes",
+      "cidades atendidas",
+      "formas de pagamento"
+    ],
+    "prohibited": [
+      "oficina mecânica",
+      "diagnóstico mecânico",
+      "reparo de veículos",
+      "autoelétrica",
+      "troca de peças",
+      "troca de óleo",
+      "borracharia"
+    ]
+  },
+  "visual_identity": {
+    "colors": {
+      "action_red": "#E31E24",
+      "industrial_black": "#1A1A1A",
+      "signal_yellow": "#FFC72C",
+      "steel_gray": "#8A8D8F",
+      "ice_white": "#F4F4F4",
+      "recommended_ratio": "60/30/8/2"
+    },
+    "fonts": {
+      "display": { "family": "Anton", "weight": 400, "file": "fonts/anton-regular.woff2" },
+      "headline": { "family": "Oswald", "weight": 700, "file": "fonts/oswald-bold.woff2" },
+      "body": { "family": "Barlow", "weight": 400, "file": "fonts/barlow-regular.woff2" },
+      "cta": { "family": "Barlow", "weight": 700, "file": "fonts/barlow-bold.woff2" },
+      "max_families_per_piece": 2
+    },
+    "logo_rules": {
+      "official_file": "logos/logo-oficial.png",
+      "minimum_digital_width_px": 120,
+      "clear_space_rule": "altura do M em todos os lados",
+      "allow_distortion": false,
+      "allow_effects": false,
+      "allow_redraw": false
+    },
+    "layout_rules": {
+      "grid_px": 8,
+      "diagonal_angle_min_deg": 8,
+      "diagonal_angle_max_deg": 12,
+      "minimum_safe_margin_px": 64,
+      "yellow_is_accent_only": true
+    }
+  },
+  "prohibited_claims": [
+    "Nós consertamos seu veículo",
+    "Nossa equipe resolve a pane no local",
+    "Faça sua manutenção conosco",
+    "Traga seu carro para nossa oficina",
+    "Nossos mecânicos irão até você",
+    "Nós trocamos sua bateria",
+    "Nós fazemos diagnóstico mecânico"
+  ],
+  "required_confirmations": [
+    "WhatsApp",
+    "Instagram",
+    "endereço",
+    "área atendida",
+    "horário de funcionamento",
+    "preços",
+    "formas de pagamento",
+    "modalidades específicas de reboque"
+  ]
+}

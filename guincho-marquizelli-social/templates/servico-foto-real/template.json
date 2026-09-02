@@ -1,0 +1,1 @@
+{"id":"servico-foto-real","format":"feed","width":1080,"height":1350,"safe_margin":64,"layout":"photo-dominant","description":"Foto real ocupa 70% da peça; texto e CTA ficam em faixa sólida independente.","slots":["real_photo","headline","service","cta","logo"]}

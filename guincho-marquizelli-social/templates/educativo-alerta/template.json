@@ -1,0 +1,1 @@
+{"id":"educativo-alerta","format":"feed","width":1080,"height":1350,"safe_margin":64,"layout":"alert-diagonal","description":"Alerta assimétrico com diagonal de 10 graus, objeto de sinalização e foto real.","slots":["alert_label","headline","supporting_text","generated_object","real_photo","cta","logo"]}

@@ -1,0 +1,17 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+output/*
+!output/.gitkeep
+drafts/*
+!drafts/.gitkeep
+brand/generated-assets/*-chroma-source.png
+tmp/
+*.pem
+*.key
+*.p12
+*.pfx

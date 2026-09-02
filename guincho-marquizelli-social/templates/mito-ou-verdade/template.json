@@ -1,0 +1,1 @@
+{"id":"mito-ou-verdade","format":"feed","width":1080,"height":1350,"safe_margin":64,"layout":"split-verdict","description":"Tela dividida diagonalmente para afirmação e veredito, com explicação curta.","slots":["claim","verdict","explanation","object","logo"]}
