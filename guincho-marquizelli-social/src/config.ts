@@ -13,6 +13,7 @@ const envSchema = z.object({
   OPENAI_VISION_MODEL: z.string().optional(),
   OPENAI_IMAGE_MODEL: z.string().optional(),
   META_ACCESS_TOKEN: z.string().optional(),
+  PUBLISHER_API_KEY: z.string().min(32).optional(),
   META_APP_SECRET: z.string().optional(),
   INSTAGRAM_ACCOUNT_ID: z.string().optional(),
   INSTAGRAM_API_VERSION: z.string().regex(/^v\d+\.\d+$/).default("v24.0"),
@@ -45,7 +46,7 @@ export function assertProductionConfiguration(value: AppConfig = config): void {
   if (!value.ENABLE_REAL_PUBLISHING) {
     throw new Error("Produção bloqueada: ENABLE_REAL_PUBLISHING não está ativo.");
   }
-  for (const key of ["META_ACCESS_TOKEN", "INSTAGRAM_ACCOUNT_ID", "PUBLIC_MEDIA_BASE_URL"] as const) {
+  for (const key of ["META_ACCESS_TOKEN", "PUBLISHER_API_KEY", "INSTAGRAM_ACCOUNT_ID", "PUBLIC_MEDIA_BASE_URL"] as const) {
     if (!value[key]) throw new Error(`Produção bloqueada: ${key} não configurado.`);
   }
   if (!value.APPROVAL_REQUIRED) {

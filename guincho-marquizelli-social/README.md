@@ -70,6 +70,7 @@ O arquivo `.env.example` documenta todas as variáveis solicitadas. Valores mais
 
 - `APP_ENV=dry-run|staging|production` — padrão `dry-run`;
 - `ENABLE_REAL_PUBLISHING=false` — deve ser `true` somente na ativação consciente;
+- `PUBLISHER_API_KEY` — chave privada de pelo menos 32 caracteres exigida para qualquer chamada à API hospedada; nunca a envie pelo chat;
 - `APPROVAL_REQUIRED=true` — produção é recusada se estiver `false`;
 - `MAX_AUTOMATIC_REVISIONS=2` — o schema não aceita valor superior a 2;
 - `CHROMIUM_EXECUTABLE_PATH` — opcional quando a descoberta automática não encontra navegador;
@@ -188,7 +189,7 @@ Antes de produção:
 1. Use conta profissional compatível e app Meta aprovado.
 2. Configure permissões adequadas ao modo de login, conta e revisão vigente.
 3. Para Instagram Login, mantenha `INSTAGRAM_LOGIN_MODE=instagram`; o host usado será `graph.instagram.com`.
-4. Defina `META_ACCESS_TOKEN`, `INSTAGRAM_ACCOUNT_ID`, `INSTAGRAM_API_VERSION` e uma `PUBLIC_MEDIA_BASE_URL` HTTPS.
+4. Defina `META_ACCESS_TOKEN`, `PUBLISHER_API_KEY`, `INSTAGRAM_ACCOUNT_ID`, `INSTAGRAM_API_VERSION` e uma `PUBLIC_MEDIA_BASE_URL` HTTPS.
 5. Rode `npm run instagram:verify`; a saída mostra apenas id, usuário, tipo da conta e presença das configurações, nunca o token.
 6. Confirme que o storage fornece uma URL HTTPS acessível pela Meta. A API expõe os JPEGs derivados em `/media/...` quando implantada publicamente.
 7. Rode os testes em staging e publique primeiro em uma conta de teste.

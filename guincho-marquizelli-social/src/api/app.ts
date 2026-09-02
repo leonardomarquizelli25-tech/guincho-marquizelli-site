@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import express from "express";
 import { join } from "node:path";
 import { z } from "zod";
@@ -7,7 +8,7 @@ import { approvalFromDecision } from "../approval/manager.js";
 import { rateLimit } from "../security/rate-limit.js";
 import { verifyMetaWebhook, verifyTelegramSecret } from "../security/webhook.js";
 import { WorkflowError } from "../utils/errors.js";
-import { projectRoot } from "../config.js";
+import { config, projectRoot } from "../config.js";
 import { PublicationTargetSchema } from "../schemas/index.js";
 
 const approvalBody = z.object({ approver: z.string().min(1), chat_id: z.string().min(1), comment: z.string().optional() });
@@ -28,6 +29,22 @@ export function createApp(workflow = new WorkflowService()) {
   app.use("/media", express.static(join(projectRoot, "output"), { fallthrough: false, index: false, maxAge: "5m" }));
 
   app.get("/health", (_request, response) => response.json({ ok: true, mode: process.env.APP_ENV ?? "dry-run", realPublishing: false }));
+  app.use("/api", (request, response, next) => {
+    if (config.APP_ENV === "dry-run" && !config.PUBLISHER_API_KEY) return next();
+    const supplied = request.get("authorization")?.replace(/^Bearer\s+/i, "") ?? "";
+    const expected = config.PUBLISHER_API_KEY;
+    if (!expected) {
+      response.status(503).json({ error: "publisher_access_not_configured" });
+      return;
+    }
+    const suppliedBytes = Buffer.from(supplied);
+    const expectedBytes = Buffer.from(expected);
+    if (suppliedBytes.length !== expectedBytes.length || !timingSafeEqual(suppliedBytes, expectedBytes)) {
+      response.status(401).json({ error: "unauthorized" });
+      return;
+    }
+    next();
+  });
   app.post("/api/briefings", (request, response) => response.status(201).json(workflow.createBrief(BriefSchema.parse(request.body))));
   app.post("/api/contents/:id/strategy", (request, response) => response.json(workflow.generateStrategy(request.params.id!)));
   app.post("/api/contents/:id/copy", (request, response) => response.json(workflow.generateCopy(request.params.id!)));
