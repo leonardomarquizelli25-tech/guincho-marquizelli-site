@@ -28,7 +28,11 @@ export function createApp(workflow = new WorkflowService()) {
   app.use(rateLimit());
   app.use("/media", express.static(join(projectRoot, "output"), { fallthrough: false, index: false, maxAge: "5m" }));
 
-  app.get("/health", (_request, response) => response.json({ ok: true, mode: process.env.APP_ENV ?? "dry-run", realPublishing: false }));
+  app.get("/health", (_request, response) => response.json({
+    ok: true,
+    mode: config.APP_ENV,
+    realPublishing: config.APP_ENV === "production" && config.ENABLE_REAL_PUBLISHING
+  }));
   app.use("/api", (request, response, next) => {
     if (config.APP_ENV === "dry-run" && !config.PUBLISHER_API_KEY) return next();
     const supplied = request.get("authorization")?.replace(/^Bearer\s+/i, "") ?? "";
