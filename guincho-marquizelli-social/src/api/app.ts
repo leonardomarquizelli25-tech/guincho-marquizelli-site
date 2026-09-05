@@ -10,6 +10,7 @@ import { verifyMetaWebhook, verifyTelegramSecret } from "../security/webhook.js"
 import { WorkflowError } from "../utils/errors.js";
 import { config, projectRoot } from "../config.js";
 import { PublicationTargetSchema } from "../schemas/index.js";
+import { publishApprovedMedia } from "../instagram/approved-publish.js";
 
 const approvalBody = z.object({ approver: z.string().min(1), chat_id: z.string().min(1), comment: z.string().optional() });
 const changeBody = z.object({ instruction: z.string().min(3), requested_by: z.string().default("human-approver") });
@@ -22,7 +23,7 @@ export function createApp(workflow = new WorkflowService()) {
   const app = express();
   app.disable("x-powered-by");
   app.use(express.json({
-    limit: "2mb",
+    limit: "18mb",
     verify: (request, _response, buffer) => { (request as typeof request & { rawBody?: Buffer }).rawBody = Buffer.from(buffer); }
   }));
   app.use(rateLimit());
@@ -83,6 +84,9 @@ export function createApp(workflow = new WorkflowService()) {
   app.post("/api/contents/:id/publish", async (request, response) => {
     const target = PublicationTargetSchema.optional().parse(request.body?.target);
     response.json(await workflow.publish(request.params.id!, target));
+  });
+  app.post("/api/publish-approved", async (request, response) => {
+    response.status(201).json(await publishApprovedMedia(request.body));
   });
   app.post("/api/dry-run", async (request, response) => response.status(201).json(await workflow.runDryRun(request.body ?? {})));
   app.get("/api/contents", (_request, response) => response.json(workflow.list()));

@@ -230,6 +230,7 @@ POST /api/contents/:id/changes
 POST /api/contents/:id/redo
 POST /api/contents/:id/schedule
 POST /api/contents/:id/publish
+POST /api/publish-approved
 POST /api/dry-run
 GET  /api/contents/:id
 GET  /api/contents/:id/history
