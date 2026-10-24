@@ -5,5 +5,7 @@ RUN corepack enable && corepack prepare pnpm@10.13.1 --activate && pnpm install 
 COPY . .
 RUN pnpm build
 ENV APP_ENV=dry-run ENABLE_REAL_PUBLISHING=false APPROVAL_REQUIRED=true
+RUN mkdir -p /app/output /app/public-media /app/.state && chown -R pwuser:pwuser /app
+USER pwuser
 EXPOSE 3000
 CMD ["node", "dist/src/api/server.js"]

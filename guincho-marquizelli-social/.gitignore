@@ -7,6 +7,8 @@ coverage/
 *.log
 output/*
 !output/.gitkeep
+public-media/
+.state/
 drafts/*
 !drafts/.gitkeep
 brand/generated-assets/*-chroma-source.png

@@ -34,6 +34,7 @@ const envSchema = z.object({
   APPROVAL_REQUIRED: booleanFromString.default(true),
   MAX_AUTOMATIC_REVISIONS: z.coerce.number().int().min(0).max(2).default(2),
   PORT: z.coerce.number().int().min(1).max(65535).default(3000),
+  APP_HOST: z.enum(["127.0.0.1", "::1", "0.0.0.0"]).default("127.0.0.1"),
   CHROMIUM_EXECUTABLE_PATH: z.string().optional()
 });
 

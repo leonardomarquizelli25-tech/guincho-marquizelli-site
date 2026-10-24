@@ -13,6 +13,7 @@ import {
 } from "../schemas/index.js";
 import { hashJson, sha256, sha256File } from "../utils/hash.js";
 import { loadTemplate } from "./templates.js";
+import { contentDirectory, privateOutputPath } from "../security/paths.js";
 
 export interface RenderInput {
   contentId: string;
@@ -117,7 +118,7 @@ export async function renderSocialArt(input: RenderInput): Promise<RenderManifes
   const truckPath = input.truckPath ?? join(projectRoot, "brand", "trucks", "approved", "IMG_1773.JPG");
   const warningPath = input.generatedAssetPath ?? join(projectRoot, "brand", "generated-assets", "warning-triangle-3d.png");
   const fontDir = join(projectRoot, "brand", "fonts");
-  const outputDir = join(projectRoot, "output", input.contentId, `v${input.version}`);
+  const outputDir = contentDirectory(input.contentId, input.version);
   await mkdir(outputDir, { recursive: true });
   const finalPath = join(outputDir, "final-1080x1350.png");
   const previewPath = join(outputDir, "preview-432x540.png");
@@ -240,5 +241,5 @@ export async function renderSocialArt(input: RenderInput): Promise<RenderManifes
 }
 
 export function outputPath(relativePath: string): string {
-  return join(projectRoot, ...relativePath.split("/"));
+  return privateOutputPath(relativePath);
 }

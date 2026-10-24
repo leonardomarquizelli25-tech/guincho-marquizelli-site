@@ -24,6 +24,7 @@ import { transition } from "./state-machine.js";
 import { hashJson } from "../utils/hash.js";
 import { WorkflowError } from "../utils/errors.js";
 import { renderSocialArt } from "../renderer/render.js";
+import { contentDirectory, privateOutputPath } from "../security/paths.js";
 
 export interface WorkflowDependencies {
   store?: ContentStore;
@@ -316,15 +317,15 @@ export class WorkflowService {
 
   private async persistManifest(record: ContentRecord): Promise<void> {
     if (!record.render) return;
-    const renderDirectory = dirname(join(projectRoot, ...record.render.final_png.split("/")));
+    const renderDirectory = dirname(privateOutputPath(record.render.final_png));
     await mkdir(renderDirectory, { recursive: true });
     await writeFile(join(renderDirectory, "manifest.json"), JSON.stringify(record.render, null, 2));
-    const directory = join(projectRoot, "output", record.id, `v${record.version}`);
+    const directory = contentDirectory(record.id, record.version);
     await writeFile(join(directory, "visual-review.json"), JSON.stringify(record.visualReview, null, 2));
   }
 
   private async writeRecord(record: ContentRecord, extra: Record<string, unknown> = {}): Promise<void> {
-    const directory = join(projectRoot, "output", record.id, `v${record.version}`);
+    const directory = contentDirectory(record.id, record.version);
     await mkdir(directory, { recursive: true });
     const safeRecord = { ...record, ...extra };
     await Promise.all([
