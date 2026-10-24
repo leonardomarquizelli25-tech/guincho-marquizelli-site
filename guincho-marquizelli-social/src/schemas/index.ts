@@ -28,8 +28,10 @@ export type ContentFormat = z.infer<typeof ContentFormatSchema>;
 export const PublicationTargetSchema = z.enum(["feed", "story"]);
 export type PublicationTarget = z.infer<typeof PublicationTargetSchema>;
 
+export const ContentIdSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{2,79}$/);
+
 export const BriefSchema = z.object({
-  content_id: z.string().min(3),
+  content_id: ContentIdSchema,
   objective: z.string().min(5),
   topic: z.string().min(5),
   audience: z.string().min(3).default("motoristas e proprietários de veículos"),

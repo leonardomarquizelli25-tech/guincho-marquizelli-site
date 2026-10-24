@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+.git
+.agents
+node_modules
+dist
+coverage
+output
+public-media
+.state
+tmp
+*.log
+*.pem
+*.key
+*.p12
+*.pfx

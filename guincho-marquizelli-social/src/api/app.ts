@@ -1,6 +1,5 @@
 import { timingSafeEqual } from "node:crypto";
 import express from "express";
-import { join } from "node:path";
 import { z } from "zod";
 import { WorkflowService } from "../orchestrator/workflow.js";
 import { BriefSchema } from "../schemas/index.js";
@@ -8,9 +7,10 @@ import { approvalFromDecision } from "../approval/manager.js";
 import { rateLimit } from "../security/rate-limit.js";
 import { verifyMetaWebhook, verifyTelegramSecret } from "../security/webhook.js";
 import { WorkflowError } from "../utils/errors.js";
-import { config, projectRoot } from "../config.js";
+import { config } from "../config.js";
 import { PublicationTargetSchema } from "../schemas/index.js";
 import { publishApprovedMedia } from "../instagram/approved-publish.js";
+import { publicMediaRoot } from "../security/paths.js";
 
 const approvalBody = z.object({ approver: z.string().min(1), chat_id: z.string().min(1), comment: z.string().optional() });
 const changeBody = z.object({ instruction: z.string().min(3), requested_by: z.string().default("human-approver") });
@@ -22,12 +22,22 @@ const redoBody = z.object({
 export function createApp(workflow = new WorkflowService()) {
   const app = express();
   app.disable("x-powered-by");
-  app.use(express.json({
-    limit: "18mb",
-    verify: (request, _response, buffer) => { (request as typeof request & { rawBody?: Buffer }).rawBody = Buffer.from(buffer); }
-  }));
   app.use(rateLimit());
-  app.use("/media", express.static(join(projectRoot, "output"), { fallthrough: false, index: false, maxAge: "5m" }));
+  app.use((_request, response, next) => {
+    response.setHeader("X-Content-Type-Options", "nosniff");
+    response.setHeader("Referrer-Policy", "no-referrer");
+    response.setHeader("Content-Security-Policy", "default-src 'none'; frame-ancestors 'none'");
+    next();
+  });
+  app.get("/media/:filename", (request, response, next) => {
+    if (!/^[a-f0-9]{64}-(feed|story)\.jpg$/.test(request.params.filename!)) {
+      response.sendStatus(404);
+      return;
+    }
+    response.sendFile(request.params.filename!, { root: publicMediaRoot, dotfiles: "deny" }, (error) => {
+      if (error) next(error);
+    });
+  });
 
   app.get("/health", (_request, response) => response.json({
     ok: true,
@@ -35,7 +45,6 @@ export function createApp(workflow = new WorkflowService()) {
     realPublishing: config.APP_ENV === "production" && config.ENABLE_REAL_PUBLISHING
   }));
   app.use("/api", (request, response, next) => {
-    if (config.APP_ENV === "dry-run" && !config.PUBLISHER_API_KEY) return next();
     const supplied = request.get("authorization")?.replace(/^Bearer\s+/i, "") ?? "";
     const expected = config.PUBLISHER_API_KEY;
     if (!expected) {
@@ -50,6 +59,11 @@ export function createApp(workflow = new WorkflowService()) {
     }
     next();
   });
+  app.use(express.json({
+    limit: "18mb",
+    inflate: false,
+    verify: (request, _response, buffer) => { (request as typeof request & { rawBody?: Buffer }).rawBody = Buffer.from(buffer); }
+  }));
   app.post("/api/briefings", (request, response) => response.status(201).json(workflow.createBrief(BriefSchema.parse(request.body))));
   app.post("/api/contents/:id/strategy", (request, response) => response.json(workflow.generateStrategy(request.params.id!)));
   app.post("/api/contents/:id/copy", (request, response) => response.json(workflow.generateCopy(request.params.id!)));
@@ -104,6 +118,10 @@ export function createApp(workflow = new WorkflowService()) {
     if (String(record.version) !== version) throw new WorkflowError("Callback de versão antiga bloqueado.", "STALE_APPROVAL_CALLBACK");
     const approver = callback.from?.username ?? String(callback.from?.id ?? "telegram-user");
     const chatId = String(callback.message?.chat?.id ?? "telegram-chat");
+    if (!config.TELEGRAM_APPROVER_CHAT_ID || chatId !== config.TELEGRAM_APPROVER_CHAT_ID) {
+      response.status(403).json({ error: "unapproved_telegram_chat" });
+      return;
+    }
     if (action === "approve") workflow.approve(contentId, approvalFromDecision(record, { decision: "approved", approver, chatId }));
     else if (action === "reject") workflow.reject(contentId, approvalFromDecision(record, { decision: "rejected", approver, chatId }));
     else if (action === "postpone") record.approvals.push(approvalFromDecision(record, { decision: "postponed", approver, chatId }));
@@ -114,7 +132,8 @@ export function createApp(workflow = new WorkflowService()) {
   app.use((error: unknown, _request: express.Request, response: express.Response, _next: express.NextFunction) => {
     if (error instanceof z.ZodError) { response.status(400).json({ error: "validation_error", issues: error.issues }); return; }
     if (error instanceof WorkflowError) { response.status(error.code.endsWith("NOT_FOUND") ? 404 : 409).json({ error: error.code, message: error.message, details: error.details }); return; }
-    response.status(500).json({ error: "internal_error", message: error instanceof Error ? error.message : "Erro desconhecido" });
+    const status = typeof error === "object" && error !== null && "status" in error ? Number(error.status) : 500;
+    response.status([400, 403, 404, 413, 415].includes(status) ? status : 500).json({ error: status === 404 ? "not_found" : "request_failed" });
   });
   return { app, workflow };
 }
